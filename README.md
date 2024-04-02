@@ -5,6 +5,9 @@ The timer turns off the illumination lamp relay after a set time. There are 4 pr
 * MCU: ATMEGA328P
 * Encoder with button
 * I2C OLED display 128x64
+* LED
+* Passive buzzer
+* Other (relay, transistors BC337, resistors, capacitors, crystal, etc...)
 * PCB: 1.0.2 rev.12
 ## Software
 The firmware is developed for the ATMEGA328P microcontroller, and you can also run it on the Arduino UNO with ATMEGA328P.
