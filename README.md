@@ -1,5 +1,6 @@
 # Illuminator
-This project is called PCB Illuminator. It is firmware for count down timer with 4 preset memory. 
+This project is called PCB Illuminator. It is firmware for count down timer. 
+The timer turns off the illumination lamp relay after a set time. There are 4 presets to save the most frequently used times.
 ## Hardware
 * MCU: ATMEGA328P
 * Encoder with button
