@@ -1,5 +1,0 @@
-{
-    "board": "arduino:avr:uno",
-    "sketch": "Osvitka_1_0_dev08.ino",
-    "port": "COM10"
-}
