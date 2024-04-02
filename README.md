@@ -15,4 +15,4 @@ It is divided into separate .ino sketch and other .h and .cpp files. In the /lib
 ## Author
 (c) mateusko O.A.M.D.G, see LICENSE
 
-!https://github.com/mateuskoOAMDG/Illuminator/blob/main/pictures/Illuminator%20(breadboard).jpg
+![picture](https://github.com/mateuskoOAMDG/Illuminator/blob/main/pictures/Illuminator%20(breadboard).jpg)
