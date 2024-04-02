@@ -14,3 +14,5 @@ The firmware is developed for the ATMEGA328P microcontroller, and you can also r
 It is divided into separate .ino sketch and other .h and .cpp files. In the /library directory there are libraries that need to be expanded to the "/libraries" subfolder in the Arduino folder. Before uploading, select the Arduino UNO board type in the Arduino IDE.
 ## Author
 (c) mateusko O.A.M.D.G, see LICENSE
+
+!https://github.com/mateuskoOAMDG/Illuminator/blob/main/pictures/Illuminator%20(breadboard).jpg
