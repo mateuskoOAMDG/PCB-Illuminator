@@ -1,10 +1,10 @@
 # Illuminator
 This project is called PCB Illuminator. It is firmware for count down timer with 4 preset memory. 
 ## Hardware
-MCU: ATMEGA328P
-Encoder with button
-I2C OLED display 128x64
-PCB: 1.0.2 rev.12
+* MCU: ATMEGA328P
+* Encoder with button
+* I2C OLED display 128x64
+* PCB: 1.0.2 rev.12
 ## Software
 The firmware is developed for the ATMEGA328P microcontroller, and you can also run it on the Arduino UNO with ATMEGA328P.
 It is divided into separate .ino sketch and other .h and .cpp files. In the /library directory there are libraries that need to be expanded to the "/libraries" subfolder in the Arduino folder. Before uploading, select the Arduino UNO board type in the Arduino IDE. 
