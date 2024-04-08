@@ -1,4 +1,8 @@
 /**************************************************************************
+  Illuminator PCB with count down timer. Arduino project.
+  Copyright (C) 2024 mateusko O.A.M.D.G
+  
+  
   Project: Osvitka s encoderom a OLED 128 x 32
   File   : Osvitka_1_0_dev08.ino
   MCU    : ATMEGA328P
@@ -11,6 +15,11 @@
   Timer for PCB illumination. 
   It uses a 128x32 OLED display and an encoder with a button.
   Setting the time from 1 sec to 99 minutes 59 sec.
+
+
+
+
+
  **************************************************************************/
 
 #include <Wire.h>

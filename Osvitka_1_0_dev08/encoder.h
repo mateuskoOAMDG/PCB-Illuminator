@@ -1,4 +1,10 @@
 /**************************************************************************
+  
+  Illuminator PCB with count down timer. Arduino project.
+  Copyright (C) 2024 mateusko O.A.M.D.G
+
+  
+  
   Project: Osvitka s encoderom a OLED 128 x 32
   File   : Encoder.h
   MCU    : ATMEGA328P
