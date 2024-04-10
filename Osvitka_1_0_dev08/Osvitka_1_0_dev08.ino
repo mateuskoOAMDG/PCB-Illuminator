@@ -4,7 +4,7 @@
   
   
   Project: Osvitka s encoderom a OLED 128 x 32
-  File   : Osvitka_1_0_dev08.ino
+  File   : Osvitka_1_0_dev09.ino
   MCU    : ATMEGA328P
   PCB    : (PINOUT) 1.0.2 rev.12
   Version: 1.0.08
@@ -374,7 +374,7 @@ void setup() {
   pinMode(PIN_LED, OUTPUT);
   pinMode(PIN_RELAY, OUTPUT);
   pinMode(PIN_BUZZER, OUTPUT);
-  
+  digitalWrite(PIN_LED, HIGH);
   // Init display
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {  // Address 0x3C for 128x32
     for (;;) {
@@ -390,7 +390,7 @@ void setup() {
 
   inviteScreen();
   delay(1000);
-  
+  digitalWrite(PIN_LED, LOW);
   display.invertDisplay(false);
   display.clearDisplay();
   display.setTextSize(1);               // Normal 1:1 pixel scale
