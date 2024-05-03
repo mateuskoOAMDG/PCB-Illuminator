@@ -180,9 +180,7 @@ void shortBeep() {
 }
 
 /// @brief Beep on Save event 2x
-void saveBeep() {
-  beep(100, 100); beep(100, 100);
-}
+
 
 /// @brief Start illumination,
 void start() {
