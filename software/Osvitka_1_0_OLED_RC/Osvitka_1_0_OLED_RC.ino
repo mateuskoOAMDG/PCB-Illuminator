@@ -4,11 +4,11 @@
   
   
   Project: Osvitka s encoderom a OLED 128 x 32
-  File   : Osvitka_1_0_dev09.ino
+  File   : Osvitka_1_0_dev10.ino
   MCU    : ATMEGA328P
   PCB    : (PINOUT) 1.0.2 rev.12
-  Version: 1.0.08
-  Date   : 2024-03-31
+  Version: 1.0.10
+  Date   : 2024-05-05
   Author : mateusko.OAMDG@outlook.com
 
 
@@ -111,6 +111,7 @@ void inviteScreen() {
   display.setCursor(0, 23);
   display.print(F("by mateusko 2024 v1.0"));
   display.display();
+  beepInit();
 }
 
 
@@ -153,39 +154,71 @@ unsigned int loadFromEEPROM(byte preset) {
   return timesec;
 }
 
-///////////////////////////// HELPERS /////////////////////////
 
-/// @brief Beep function
-/// @param time tone time
-/// @param pause pause time
-void beep(int time = 200, int pause = 100) {
-  tone(PIN_BUZZER, 4000, time);
+
+
+
+//////////// Beep functions ///////////
+
+void beep(int time = 200, int pause = 100, bool led = false, int f = 4000) {
+  if (led) digitalWrite(PIN_LED, HIGH);
+  tone(PIN_BUZZER, f, time);
   delay(time);
+  if (led) digitalWrite(PIN_LED, LOW);
   noTone(PIN_BUZZER);
   delay(pause);
 }
 
-/// @brief Beep function on Stop event 3x3
-void beepStop() {
-  beep();beep();beep();delay(250);
-  beep();beep();beep();delay(250);
-  beep();beep();beep();delay(250);
+void beepInit() {
+  beep(100,100,true,3400);
+  beep(100,100,true,4410);
+  beep(100,100,true,5244);
+
 }
 
-/// @brief Short beep on encoder turn
+void beepSave() {
+  beep(200, 100, true); 
+  beep(100, 100, true);
+}
+
+void beepLoad() {
+  beep(100, 100, true);
+}
+
+void beepStopZero() {
+  beep(200, 100, true); 
+  beep(200, 100, true); 
+  beep(200, 300, true); 
+  beep(200, 100, true); 
+  beep(200, 100, true); 
+  beep(200, 300, true); 
+  beep(200, 100, true); 
+  beep(200, 100, true); 
+  beep(200, 300, true); 
+
+}
+void beepStart() {
+  beep(200, 100, true); 
+  beep(200, 100, true); 
+}
+
+void beepStopUser() {
+  beep(200, 100, true); 
+  beep(200, 100, true); 
+  beep(200, 100, true); 
+}
+
 void shortBeep() {
- digitalWrite(PIN_BUZZER, HIGH);
- delay(1);
- digitalWrite(PIN_BUZZER, LOW);
+  digitalWrite(PIN_BUZZER, HIGH);
+  delay(1);
+  digitalWrite(PIN_BUZZER, LOW);
 }
 
-/// @brief Beep on Save event 2x
+///////////////////////////// HELPERS /////////////////////////
 
-
-/// @brief Start illumination,
+/// @brief Start illumination
 void start() {
   if (!cdTimer.isZero()) {
-      cdTimer.start();
       wminutes.drawmode &= ~mHIDE;
       wseconds.drawmode &= ~mHIDE;
       digitalWrite(PIN_LED, HIGH);
@@ -195,7 +228,8 @@ void start() {
       lighting = true;
       screenMain.forEach(GROUP_BUTTONS | GROUP_TIMER, lockTimerAndPresets);
       display.display();
-      beep();beep();
+      beepStart();
+      cdTimer.start();
     }
 }
 
@@ -221,7 +255,12 @@ void stop(bool user = false) {
     wEndLighting.draw();
     display.display();
     
-    if (user) beep(); else beepStop();
+    if (user) 
+      beepStopUser();
+    else if (cdTimer.isZero()) 
+      beepStopZero();
+    else
+      beep();
 
     //wait for Click
     unsigned int timer = millis();
@@ -275,8 +314,7 @@ void save(byte preset_no, ButtonView& button) {
   screenMain.setValue(GROUP_BUTTONS, 0);
   button.value = 1;
   screenMain.draw(GROUP_BUTTONS);
-   saveBeep();
-  ledBlink(5);
+  beepSave();
 }
 
 /// @brief Callback function for Click Preset buttons
@@ -288,12 +326,14 @@ void load(byte preset_no, ButtonView& button) {
   
   button.drawmode = mINVERSE | mCLEAR;
   button.draw();
-  if(sec)  ledBlink(3);
+  
+
   cdTimer.setTime(sec / 60, sec % 60);
   screenMain.setValue(GROUP_BUTTONS, 0);
   button.value = 1;
   screenMain.draw(GROUP_BUTTONS);
   cdTimer.draw();
+  beepLoad();
 }
 
 void wPreset1_onClick() {
