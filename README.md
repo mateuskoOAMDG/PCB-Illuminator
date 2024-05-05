@@ -16,3 +16,5 @@ It is divided into separate .ino sketch and other .h and .cpp files. In the /lib
 (c) mateusko O.A.M.D.G, see LICENSE
 
 ![picture](https://github.com/mateuskoOAMDG/Illuminator/blob/main/pictures/Illuminator%20(breadboard).jpg)
+
+![picture](https://github.com/mateuskoOAMDG/Illuminator/blob/main/pictures/illuminator-01.jpg)
