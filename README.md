@@ -1,10 +1,10 @@
-# Illuminator
+# PCB Illuminator
 This project is called PCB Illuminator. It is firmware for count down timer. 
 The timer turns on and off the illumination lamp relay after a set time. There are 4 presets to save the most frequently used times.
 ## Hardware
 * MCU: ATMEGA328P
 * Encoder with button
-* I2C OLED display 128x64
+* I2C OLED display 128x64 (or I2C LCD 16x2)
 * LED
 * Passive buzzer
 * Other (relay, transistors BC337, resistors, capacitors, crystal, etc...)
