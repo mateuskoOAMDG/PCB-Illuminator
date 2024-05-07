@@ -7,8 +7,8 @@
   File   : Osvitka_1_0_dev10.ino
   MCU    : ATMEGA328P
   PCB    : (PINOUT) 1.0.2 rev.12
-  Version: 1.0.10
-  Date   : 2024-05-05
+  Version: 1.0.11
+  Date   : 2024-05-07
   Author : mateusko.OAMDG@outlook.com
 
 
@@ -90,7 +90,7 @@ ButtonView wpreset4(VIEW_BUTTONS_XOFFSET + 15, 16, 15, 15, '4'); //preset button
 IconView wPlay(97, 2, PLAY_Icon); // Play & Stop Icon
 ViewContainer screenMain(&wpreset1, &wPlay, &wPlay); // Main Screen (container)
 
-
+int last_time = 0; //last used time in sec
 bool lighting = false; //osvit aktívny
 
 //////////////////////// INVITE SCREEN /////////////////////////////
@@ -221,15 +221,20 @@ void start() {
   if (!cdTimer.isZero()) {
       wminutes.drawmode &= ~mHIDE;
       wseconds.drawmode &= ~mHIDE;
-      digitalWrite(PIN_LED, HIGH);
-      digitalWrite(PIN_RELAY, HIGH);
+      if (cdTimer.mode != TIMERV_MODE_PAUSE) last_time = cdTimer.minutes * 60 + cdTimer.seconds;
+      
       wPlay.setIcon(STOP_Icon);
       wPlay.draw();
       lighting = true;
       screenMain.forEach(GROUP_BUTTONS | GROUP_TIMER, lockTimerAndPresets);
+      cdTimer.draw();
       display.display();
       beepStart();
       cdTimer.start();
+      
+      digitalWrite(PIN_RELAY, HIGH);
+      digitalWrite(PIN_LED, HIGH);
+      cdTimer.draw();
     }
 }
 
@@ -251,27 +256,32 @@ void stop(bool user = false) {
     //draw "KONIEC"
     LabelView wEndLighting(0, 24, 128, 19);
     display.clearDisplay();
-    wEndLighting.setText(F("  KONIEC"));
+    wEndLighting.setText(F("  Koniec"));
     wEndLighting.draw();
     display.display();
     
     if (user) 
       beepStopUser();
-    else if (cdTimer.isZero()) 
+    else if (cdTimer.isZero()) {
       beepStopZero();
+      cdTimer.setTime(last_time / 60, last_time % 60);
+      cdTimer.draw();
+    }
     else
       beep();
-
+/*
     //wait for Click
     unsigned int timer = millis();
     sw.reset();
     while (!sw.onRelease()) sw.update();
-    
+    sw.reset();
+*/
     display.clearDisplay();
     wminutes.drawmode &= ~mHIDE;
     wseconds.drawmode &= ~mHIDE;
     screenMain.forEach(GROUP_BUTTONS | GROUP_TIMER, unlockTimerAndPresets);
     screenMain.draw();
+    display.display();
 }
 
 /// @brief Pause Illumination
